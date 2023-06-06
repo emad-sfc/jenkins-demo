@@ -1,18 +1,18 @@
 node {
   stage("Clone the project") {
-    git branch: 'main', url: 'https://github.com/nkchauhan003/jenkins-demo.git'
+    git branch: 'main', url: 'https://github.com/emad-sfc/jenkins-demo.git'
   }
 
   stage("Compilation") {
-    bat "./mvnw clean install -DskipTests"
+    sh "./mvnw clean install -DskipTests"
   }
 
   stage("Tests and Deployment") {
     stage("Runing unit tests") {
-      bat "./mvnw test -Punit"
+      sh "./mvnw test -Punit"
     }
     stage("Deployment") {
-      bat 'nohup ./mvnw spring-boot:run -Dserver.port=8001 &'
+      sh 'nohup ./mvnw spring-boot:run -Dserver.port=8001 &'
     }
   }
 }
